@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FunctionComponent, useEffect, useState } from "react";
+import "semantic-ui-css/semantic.min.css";
+import { TheCocktailDBRepository } from "repository/TheCocktailDBRepository";
+import { Cocktail } from "models/cocktail";
+import { FavouritesProvider } from "providers/favourites/provider";
+import { Home } from "components/pages/Home";
 
-function App() {
+const theCocktailDBRepository: TheCocktailDBRepository =
+  new TheCocktailDBRepository();
+
+const App: FunctionComponent = () => {
+  const [drinks, setDrinks] = useState<Cocktail[]>([]);
+
+  useEffect(() => {
+    const fetchDrinks = async () => {
+      const cocktails: Cocktail[] | undefined =
+        await theCocktailDBRepository.searchCocktails("margarita");
+
+      setDrinks(cocktails);
+    };
+    fetchDrinks().catch((err) => console.error(err));
+  }, []);
+
+  console.log("drinks", drinks);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FavouritesProvider>
+      <Home />
+    </FavouritesProvider>
   );
-}
+};
 
 export default App;
