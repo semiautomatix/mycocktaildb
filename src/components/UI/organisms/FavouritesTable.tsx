@@ -13,7 +13,7 @@ export const FavouritesTable: FunctionComponent<FavouritesTableProps> = ({
 }) => {
   const handleOnDeleteFavourite = (idDrink: string) =>
     onDeleteFavourite(idDrink);
-  console.log(tableRows);
+
   return (
     <Table celled>
       <Table.Header>

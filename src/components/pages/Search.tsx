@@ -45,7 +45,7 @@ export const SearchPage: FunctionComponent = () => {
 
       dispatch({ type: "SEARCH_END", results: cocktails });
     };
-    if (value) fetchDrinks().catch((err) => console.error(err));
+    if (value) fetchDrinks().catch((err) => console.error(err)); // TODO: error handling
   }, [value]);
 
   const handleSearchChange = useCallback((e, data) => {
