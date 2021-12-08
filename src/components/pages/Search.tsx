@@ -1,14 +1,14 @@
 import { Cocktail } from "models/cocktail";
 import { FunctionComponent, useCallback, useEffect, useReducer } from "react";
 import { CustomSearchField } from "components/UI/molecules/CustomSearchField";
-import { TheCocktailDBRepository } from "repository/TheCocktailDBRepository";
+import TheCocktailDBRepository from "repository/TheCocktailDBRepository";
 import { SearchResultsTable } from "components/UI/organisms/SearchResultsTable";
 import { useFavourites } from "providers/favourites/use";
 
 const initialState = {
   loading: false,
   results: [],
-  value: "marg",
+  value: "",
 };
 
 const searchReducer = (
@@ -27,9 +27,6 @@ const searchReducer = (
   }
 };
 
-const theCocktailDBRepository: TheCocktailDBRepository =
-  new TheCocktailDBRepository();
-
 export const SearchPage: FunctionComponent = () => {
   const [state, dispatch] = useReducer(searchReducer, initialState);
   const { loading, results, value } = state;
@@ -37,6 +34,9 @@ export const SearchPage: FunctionComponent = () => {
     favourites,
     actions: { addFavourite },
   } = useFavourites();
+
+  const theCocktailDBRepository: TheCocktailDBRepository =
+    new TheCocktailDBRepository();
 
   useEffect(() => {
     const fetchDrinks = async () => {
@@ -48,9 +48,14 @@ export const SearchPage: FunctionComponent = () => {
     if (value) fetchDrinks().catch((err) => console.error(err)); // TODO: error handling
   }, [value]);
 
-  const handleSearchChange = useCallback((e, data) => {
-    dispatch({ type: "SEARCH_START", query: data.value });
-  }, []);
+  const handleSearchChange = useCallback(
+    (e, data) => {
+      if (data.value !== value) {
+        dispatch({ type: "SEARCH_START", query: data.value });
+      }
+    },
+    [value]
+  );
 
   const handleAddFavourite = (cocktail: Cocktail) => {
     addFavourite(cocktail);

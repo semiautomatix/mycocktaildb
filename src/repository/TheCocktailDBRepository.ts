@@ -1,8 +1,8 @@
 import { Cocktail } from "models/cocktail";
-import { TheCocktailDBApiController } from "api/TheCocktailDBApiController";
+import TheCocktailDBApiController from "api/TheCocktailDBApiController";
 
 // www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita
-export class TheCocktailDBRepository {
+class TheCocktailDBRepository {
   private cocktailDBApiController: TheCocktailDBApiController =
     new TheCocktailDBApiController();
   private readonly searchURL: string = "/search.php";
@@ -21,3 +21,5 @@ export class TheCocktailDBRepository {
     return data.drinks ?? [];
   };
 }
+
+export default TheCocktailDBRepository;

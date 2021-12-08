@@ -1,5 +1,5 @@
 import nock from "nock";
-import { TheCocktailDBRepository } from "../TheCocktailDBRepository";
+import TheCocktailDBRepository from "../TheCocktailDBRepository";
 
 describe("The Cocktail DB Repository", () => {
   let sut: TheCocktailDBRepository;
@@ -13,7 +13,8 @@ describe("The Cocktail DB Repository", () => {
     nock.enableNetConnect();
   });
 
-  it("Search Cocktail", async () => {
+  it("Success: Search Cocktail", async () => {
+    // arrange
     nock("https://www.thecocktaildb.com")
       .defaultReplyHeaders({
         "access-control-allow-origin": "*",
@@ -23,15 +24,19 @@ describe("The Cocktail DB Repository", () => {
       .query({
         s: "margarita",
       })
-      .reply(200, [
-        {
-          idDrink: "11007",
-          strDrink: "Margarita",
-        },
-      ]);
+      .reply(200, {
+        drinks: [
+          {
+            idDrink: "11007",
+            strDrink: "Margarita",
+          },
+        ],
+      });
 
+    // act
     const result = await sut.searchCocktails("margarita");
 
+    // assert
     expect(result).toMatchObject([
       {
         idDrink: "11007",

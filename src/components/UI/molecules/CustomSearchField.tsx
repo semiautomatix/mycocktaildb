@@ -17,8 +17,16 @@ export const CustomSearchField: FunctionComponent<CustomSearchFieldProps> = ({
     onSearch(event, { ...data, value: inputValue });
   return (
     <Input
+      data-testid="search-input"
       icon={
-        <Icon name="search" inverted circular link onClick={handleOnSearch} />
+        <Icon
+          name="search"
+          inverted
+          circular
+          link
+          onClick={handleOnSearch}
+          data-testid="search-icon"
+        />
       }
       onChange={handleOnChange}
       placeholder="Search..."

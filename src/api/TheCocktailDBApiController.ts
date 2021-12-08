@@ -1,6 +1,6 @@
 import Axios, { AxiosInstance } from "axios";
 
-export class TheCocktailDBApiController {
+class TheCocktailDBApiController {
   public static API_KEY = "1"; // TODO: environment variable
   public static URL = `https://www.thecocktaildb.com/api/json/v1/${TheCocktailDBApiController.API_KEY}`; // TODO: environment variable
   public client: AxiosInstance;
@@ -11,3 +11,5 @@ export class TheCocktailDBApiController {
     });
   }
 }
+
+export default TheCocktailDBApiController;

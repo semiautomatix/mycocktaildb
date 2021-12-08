@@ -18,7 +18,7 @@ export const SearchResultsTable: FunctionComponent<SearchResultsTableProps> = ({
 }) => {
   const handleOnAddFavourite = (cocktail: Cocktail) => onAddFavourite(cocktail);
   return (
-    <Table celled loading={loading}>
+    <Table celled>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Name</Table.HeaderCell>
@@ -26,10 +26,9 @@ export const SearchResultsTable: FunctionComponent<SearchResultsTableProps> = ({
           <Table.HeaderCell>&nbsp;</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
-
       <Table.Body>
         {tableRows.map((tableRow) => (
-          <Table.Row>
+          <Table.Row id={tableRow.idDrink}>
             <Table.Cell>{tableRow.strDrink}</Table.Cell>
             <Table.Cell>
               <Image src={tableRow.strDrinkThumb} size="small" />
