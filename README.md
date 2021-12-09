@@ -19,6 +19,9 @@ Example React application consuming The Cocktail DB API
 
 ## Instructions
 
+- Clone
+- `npm i` or `yarn`
+- Navigate to `http://localhost:3000`
 - Complete searching string in text field, click search icon
 - On search results, click the star icon to add to favourites
 - Use tabs to navigate between pages
