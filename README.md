@@ -8,15 +8,17 @@ Example React application consuming The Cocktail DB API
 - Store search string locally, so it isn't transient
 - Persist results of rating
 - Additional testing of components
-- Completing the TypeScript models
+- Completing the TypeScript models and additional static typing
 - Templates for similar table pages (i.e. Favourites and Search pages)
 
 ## Additional Notes
 
 - Created using [Create React App](https://github.com/facebook/create-react-app)
-- Also for time Static Type is somewhat broad, though not just `any`!
 - UI using Semantic CSS
 - State management via Context
+
+## Instructions
+
 - Complete searching string in text field, click search icon
 - On search results, click the star icon to add to favourites
 - Use tabs to navigate between pages
