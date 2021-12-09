@@ -35,11 +35,11 @@ export const SearchPage: FunctionComponent = () => {
     actions: { addFavourite },
   } = useFavourites();
 
-  const theCocktailDBRepository: TheCocktailDBRepository =
-    new TheCocktailDBRepository();
-
   useEffect(() => {
     const fetchDrinks = async () => {
+      const theCocktailDBRepository: TheCocktailDBRepository =
+        new TheCocktailDBRepository();
+
       const cocktails: Cocktail[] | undefined =
         await theCocktailDBRepository.searchCocktails(value);
 

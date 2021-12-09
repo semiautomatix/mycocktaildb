@@ -27,8 +27,8 @@ export const SearchResultsTable: FunctionComponent<SearchResultsTableProps> = ({
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {tableRows.map((tableRow) => (
-          <Table.Row id={tableRow.idDrink}>
+        {tableRows.map((tableRow, idx) => (
+          <Table.Row key={tableRow.idDrink} data-testid={`table-row-${idx}`}>
             <Table.Cell>{tableRow.strDrink}</Table.Cell>
             <Table.Cell>
               <Image src={tableRow.strDrinkThumb} size="small" />

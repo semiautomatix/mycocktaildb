@@ -1,18 +1,22 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import TheCocktailDBRepository from "repository/TheCocktailDBRepository";
 import { SearchPage } from "components/pages/Search";
 
 jest.mock("repository/TheCocktailDBRepository");
 
 describe("Search Page", () => {
-  const drinks = {
-    drinks: [
-      {
-        idDrink: "11007",
-        strDrink: "Margarita",
-      },
-    ],
-  };
+  const drinks = [
+    // TODO: update this to allow table to properly render
+    {
+      idDrink: "drink-id-1",
+      strDrink: "Margarita",
+    },
+    {
+      idDrink: "drink-id-2",
+      strDrink: "Tom Collins",
+    },
+  ];
 
   const mockSearchCocktails = jest.fn();
 
@@ -20,7 +24,7 @@ describe("Search Page", () => {
     jest.clearAllMocks();
     TheCocktailDBRepository.mockImplementation(() => {
       return {
-        searchCocktails: jest.fn(),
+        searchCocktails: mockSearchCocktails,
       };
     });
   });
@@ -32,20 +36,17 @@ describe("Search Page", () => {
     render(<SearchPage />);
 
     // act
-    await act(async () => {
-      fireEvent.change(screen.getByRole("textbox"), {
-        target: { value: "margarita" },
-      });
-      fireEvent.click(screen.getByTestId("search-icon"));
+    await userEvent.type(screen.getByRole("textbox"), "tom collins", {
+      delay: 100,
     });
 
+    userEvent.click(screen.getByTestId("search-icon"));
+
+    await waitFor(() =>
+      expect(screen.getByTestId("table-row-1")).toBeInTheDocument()
+    );
+
     // assert
-    //expect(screen.getByRole("tbody")).toHave;
-    // expect(onSearch).toBeCalledWith(
-    //   expect.any(Object),
-    //   expect.objectContaining({
-    //     value: "margarita",
-    //   })
-    // );
+    expect(screen.queryAllByRole("row")).toHaveLength(3);
   });
 });
